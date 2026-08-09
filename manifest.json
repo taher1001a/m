@@ -1,0 +1,12 @@
+{
+  "name": "إدارة الديون والمخزون",
+  "short_name": "الديون والمخزون",
+  "description": "نظام متكامل لإدارة الديون والمخزون والفواتير",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#1e90ff",
+  "dir": "rtl",
+  "lang": "ar",
+  "icons": []
+}
