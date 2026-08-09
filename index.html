@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>إدارة الديون والمخزون</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e90ff">
+    <link rel="stylesheet" href="css/style.css">
+<!-- PDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Barcode Scanner Library -->
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+    <!-- Firebase (compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <!-- ===== Loading Screen ===== -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="spinner"></div>
+        <p>جاري التحميل...</p>
+    </div>
+
+    <!-- ===== Login View ===== -->
+    <div id="loginView" class="view hidden">
+        <div class="login-card">
+            <div class="login-logo">📊</div>
+            <h1>إدارة الديون والمخزون</h1>
+            <p>تسجيل الدخول بحساب Google للمتابعة</p>
+            <button id="googleLoginBtn" class="btn btn-google">
+                <span class="google-icon">G</span>
+                <span>تسجيل الدخول عبر Google</span>
+            </button>
+            <button id="demoLoginBtn" class="btn btn-demo">الدخول كضيف (تجريبي)</button>
+            <p class="login-hint" id="loginHint"></p>
+        </div>
+    </div>
+
+    <!-- ===== App Shell ===== -->
+    <div id="appView" class="view hidden">
+        <!-- Top Bar -->
+        <header class="topbar">
+            <button id="menuBtn" class="icon-btn">☰</button>
+            <h2 id="pageTitle">لوحة التحكم</h2>
+            <div class="topbar-actions">
+                <button id="syncStatusBtn" class="icon-btn" title="حالة المزامنة">☁️</button>
+                <button id="userAvatarBtn" class="avatar-btn" title="الحساب">👤</button>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="app-logo">📊</span>
+                <span>نظام الديون والمخزون</span>
+            </div>
+            <ul>
+                <li><button class="nav-item active" data-page="dashboard">📊 لوحة التحكم</button></li>
+                <li><button class="nav-item" data-page="debts">💰 إدارة الديون</button></li>
+                <li><button class="nav-item" data-page="inventory">📦 المخزون</button></li>
+                <li><button class="nav-item" data-page="invoices">🧾 الفواتير</button></li>
+                <li><button class="nav-item" data-page="backup">☁️ النسخ الاحتياطي</button></li>
+                <li><button class="nav-item" data-page="settings">⚙️ الإعدادات</button></li>
+            </ul>
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="btn btn-logout">🚪 تسجيل الخروج</button>
+            </div>
+        </nav>
+        <div id="sidebarOverlay" class="sidebar-overlay hidden"></div>
+
+        <!-- Overlay print area -->
+        <div id="printArea"></div>
+
+        <!-- Main Content -->
+        <main id="mainContent" class="main-content">
+            <!-- Pages injected here -->
+        </main>
+
+        <!-- FAB -->
+        <button id="fabBtn" class="fab" title="إضافة سريعة">+</button>
+    </div>
+
+    <!-- ===== Toast ===== -->
+    <div id="toast" class="toast"></div>
+
+    <!-- ===== Modal ===== -->
+    <div id="modalOverlay" class="modal-overlay hidden">
+        <div class="modal" id="modalContent"></div>
+    </div>
+
+<script src="js/db.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/firestore.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
